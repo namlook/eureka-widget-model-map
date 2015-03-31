@@ -1,6 +1,25 @@
 # Eureka-widget-model-map
 
-This README outlines the details of collaborating on this Ember addon.
+A widget that geolocalize an Eureka model. Usage:
+
+    {
+        type: 'model-map',
+
+        // the model property name that represente the latitude
+        latitudeProperty: 'latitude',
+
+        // the model property name that represente the longitude
+        longitudeProperty: 'longitude',
+
+        // the panel header label
+        label: null
+
+        // the minimal zoom authorized
+        minZoom: 2,
+
+        // the zoom level when initializing the map
+        zoom: 5
+    }
 
 ## Installation
 

@@ -1,7 +1,7 @@
 {
   "name": "eureka-widget-model-map",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "A widget that geolocalize an Eureka model",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -35,7 +35,8 @@
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "eureka-widget"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
