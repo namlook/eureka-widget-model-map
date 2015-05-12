@@ -1,6 +1,6 @@
 {
   "name": "eureka-widget-model-map",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A widget that geolocalize on a map an Eureka model",
   "directories": {
     "doc": "doc",
