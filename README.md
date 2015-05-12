@@ -1,6 +1,7 @@
 # Eureka-widget-model-map
 
-A widget that geolocalize an Eureka model. Usage:
+
+A widget that geolocalize on a map an Eureka model. Usage:
 
     {
         type: 'model-map',
@@ -14,12 +15,24 @@ A widget that geolocalize an Eureka model. Usage:
         // the panel header label
         label: null
 
-        // the minimal zoom authorized
+        // the minimal zoom allowed
         minZoom: 2,
+
+        // the maximal zoom allowed
+        maxZoom: 20,
 
         // the zoom level when initializing the map
         zoom: 5
+
+        // the name of the map provider.
+        // see http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+        // for all layers available
+        mapProvider: MapQuestOpen.OSM'
     }
+
+
+**NOTE: this addon requires the ember-leaflet-hurry addon.**
+
 
 ## Installation
 

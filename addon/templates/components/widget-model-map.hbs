@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    {{#if label}}
+        <div class="panel-heading">{{{label}}}</div>
+    {{/if}}
+
+    <div class="panel-body" style="height:250px;text-align:center">
+        {{#if coordinatesPromise.isPending}}
+            {{partial 'eureka-loading'}}
+        {{else}}
+            {{#unless hasCoordinates}}
+                <p>no coordonates found</p>
+            {{/unless}}
+        {{/if}}
+    </div>
+</div>

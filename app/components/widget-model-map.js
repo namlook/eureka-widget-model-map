@@ -1,3 +1,3 @@
-import Widget from 'eureka-widget-model-map';
+import widgetModelMap from 'eureka-widget-model-map/components/widget-model-map';
 
-export default Widget;
+export default widgetModelMap;
