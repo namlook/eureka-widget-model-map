@@ -114,19 +114,22 @@ export default WidgetModel.extend({
 
         var mapProvider = this.get('mapProvider');
 
+        var pinIcon = L.icon({
+            iconUrl: '/images/leaflet/marker-icon.png',
+            iconRetinaUrl: '/images/leaflet/marker-icon-2x.png',
+            iconAnchor: [12.5, 41] // needed to position the marker correctly
+        });
+
+
         this.get('coordinatesPromise').then(function(coordinates) {
             var latitude = coordinates.latitude;
             var longitude = coordinates.longitude;
             if (latitude && longitude) {
-
                 L.tileLayer.provider(mapProvider).addTo(map);
-
                 let latLong = new L.LatLng(latitude, longitude);
-
-                let marker = new L.marker(latLong);
+                let marker = new L.marker(latLong, {icon: pinIcon});
                 marker.addTo(map);
                 map.panTo(latLong, {animate: true});
-
             }
         });
     }),
