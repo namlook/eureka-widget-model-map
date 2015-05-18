@@ -7,9 +7,14 @@
         {{#if coordinatesPromise.isPending}}
             {{partial 'eureka-loading'}}
         {{else}}
-            {{#unless hasCoordinates}}
-                <p>no coordonates found</p>
-            {{/unless}}
+            {{#if collection.isFulfilled}}
+                {{#unless hasCoordinates}}
+                    <p>no coordonates found</p>
+                {{/unless}}
+            {{/if}}
+            {{#if collection.isRejected}}
+                {{collection.reason.error}}
+            {{/if}}
         {{/if}}
     </div>
 </div>

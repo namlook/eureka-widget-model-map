@@ -103,16 +103,14 @@ export default WidgetModel.extend({
 
     renderMap: Ember.observer('coordinatesPromise.isFulfilled', 'mapProvider', function() {
         var map = this.get('_map');
+        var markersLayer = this.get('_markersLayer');
         if (!map) {
             map = this.initializeMap();
             this.set('_map', map);
-        } else {
-            map.eachLayer(function (layer) {
-                map.removeLayer(layer);
-            });
+        } else if (markersLayer) {
+            map.removeLayer(markersLayer);
         }
 
-        var mapProvider = this.get('mapProvider');
 
         var pinIcon = L.icon({
             iconUrl: '/images/leaflet/marker-icon.png',
@@ -121,15 +119,16 @@ export default WidgetModel.extend({
         });
 
 
+        var that = this;
         this.get('coordinatesPromise').then(function(coordinates) {
             var latitude = coordinates.latitude;
             var longitude = coordinates.longitude;
             if (latitude && longitude) {
-                L.tileLayer.provider(mapProvider).addTo(map);
                 let latLong = new L.LatLng(latitude, longitude);
                 let marker = new L.marker(latLong, {icon: pinIcon});
                 marker.addTo(map);
                 map.panTo(latLong, {animate: true});
+                that.set('_markersLayer', marker);
             }
         });
     }),
@@ -139,12 +138,24 @@ export default WidgetModel.extend({
         var minZoom = this.get('minZoom');
         var maxZoom = this.get('maxZoom');
 
+        var planLayer = L.tileLayer.provider('MapQuestOpen.OSM');
+        var satelliteLayer = L.tileLayer.provider('Esri.WorldImagery');
+
+        var baseLayers = {
+            "Plan": planLayer,
+            "Satellite": satelliteLayer
+        };
+
         var map = L.map(this.$('.panel-body')[0], {
             center: [20.0, 5.0],
             zoom: zoom,
             minZoom: minZoom,
-            maxZoom: maxZoom
+            maxZoom: maxZoom,
+            layers: [planLayer]
         });
+
+        L.control.layers(baseLayers, null).addTo(map);
+        L.control.scale({metric: true}).addTo(map);
 
         map.scrollWheelZoom.disable();
 
