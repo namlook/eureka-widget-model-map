@@ -107,8 +107,10 @@ export default WidgetModel.extend({
         if (!map) {
             map = this.initializeMap();
             this.set('_map', map);
-        } else if (markersLayer) {
-            map.removeLayer(markersLayer);
+        } else {
+            map.eachLayer(function (layer) {
+                map.removeLayer(layer);
+            });
         }
 
 
@@ -126,9 +128,9 @@ export default WidgetModel.extend({
             if (latitude && longitude) {
                 let latLong = new L.LatLng(latitude, longitude);
                 let marker = new L.marker(latLong, {icon: pinIcon});
+                map.addLayer(that.get('_defaultLayer'));
                 marker.addTo(map);
                 map.panTo(latLong, {animate: true});
-                that.set('_markersLayer', marker);
             }
         });
     }),
@@ -140,6 +142,8 @@ export default WidgetModel.extend({
 
         var planLayer = L.tileLayer.provider('MapQuestOpen.OSM');
         var satelliteLayer = L.tileLayer.provider('Esri.WorldImagery');
+
+        this.set('_defaultLayer', planLayer);
 
         var baseLayers = {
             "Plan": planLayer,
